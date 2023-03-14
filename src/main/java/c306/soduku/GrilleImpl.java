@@ -27,7 +27,7 @@ public class GrilleImpl implements Grille {
 
     @Override
     public void setValue(int x, int y, ElementDeGrilleImplAsChar value)
-            throws HorsBornesException, ValeurImpossibleException, ValeurInitialeModifExcept {
+            throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
         // HorsBornesException
         if (x < 0 || y < 0 || x >= dimension || y >= dimension) {
             throw new HorsBornesException("HorsBornesException");
@@ -38,12 +38,10 @@ public class GrilleImpl implements Grille {
             throw new ValeurImpossibleException("ValeurImpossibleException");
         }
 
-        /*
-         * ElementInterditException
-         * if (!elements.contains(value)) {
-         * throw new ElementInterditException("ElementInterditException");
-         * }
-         */
+        // ElementInterditException
+        if (!elements.contains(value)) {
+            throw new ElementInterditException("ElementInterditException");
+        }
 
         // ValeurInitialeModifExcept
         if (isValeurInitiale(x, y)) {
@@ -71,18 +69,16 @@ public class GrilleImpl implements Grille {
 
     @Override
     public boolean isPossible(int x, int y, ElementDeGrilleImplAsChar value)
-            throws HorsBornesException {
+            throws HorsBornesException, ElementInterditException {
         // HorsBornesException
         if (x < 0 || y < 0 || x >= dimension || y >= dimension) {
             throw new HorsBornesException("HorsBornesException");
         }
 
-        /*
-         * // ElementInterditException
-         * if (!elements.contains(value)) {
-         * throw new ElementInterditException("ElementInterditException");
-         * }
-         */
+        // ElementInterditException
+        if (!elements.contains(value)) {
+            throw new ElementInterditException("ElementInterditException");
+        }
 
         for (int i = 0; i < dimension; i++) {
             if (grille[x][i] == value || grille[i][y] == value) {
