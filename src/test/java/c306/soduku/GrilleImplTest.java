@@ -16,7 +16,7 @@ public class GrilleImplTest {
     }
 
     @Test
-    public ElementDeGrille testIsComplete() {
+    public void testIsComplete() {
         /*
          * ElementDeGrille value = new ElementDeGrille();
          * for (int i = 0; i < grille.getDimension(); i++) {
@@ -26,11 +26,10 @@ public class GrilleImplTest {
          * }
          * assertTrue(grille.isComplete());
          */
-        return null;
     }
 
     @Test
-    public ElementDeGrille testIsPossible() {
+    public void testIsPossible() {
         /*
          * ElementDeGrille value1 = new ElementDeGrille();
          * ElementDeGrille value2 = new ElementDeGrille();
@@ -40,7 +39,6 @@ public class GrilleImplTest {
          * assertTrue(grille.isPossible(0, 2, value1));
          * assertFalse(grille.isPossible(0, 2, value2));
          */
-        return null;
     }
 
 }
