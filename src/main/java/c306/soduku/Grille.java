@@ -43,7 +43,7 @@ public interface Grille {
          * @throws ValeurInitialeModifExcept si une valeur initiale de la
          *                                   grille est en position x,y
          */
-        void setValue(int x, int y, ElementDeGrille value)
+        void setValue(int x, int y, ElementDeGrilleImplAsChar value)
                         throws HorsBornesException, ValeurImpossibleException, ElementInterditException,
                         ValeurInitialeModifExcept;
 
@@ -77,7 +77,7 @@ public interface Grille {
          * @throws ElementInterditException si value n'est pas un caractere pouvant être
          *                                  mis dans la grille
          */
-        public boolean isPossible(int x, int y, ElementDeGrille value)
+        public boolean isPossible(int x, int y, ElementDeGrilleImplAsChar value)
                         throws HorsBornesException, ElementInterditException;
 
         /**
