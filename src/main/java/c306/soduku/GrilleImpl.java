@@ -38,10 +38,12 @@ public class GrilleImpl implements Grille {
             throw new ValeurImpossibleException("ValeurImpossibleException");
         }
 
-        // ElementInterditException
-        if (!elements.contains(value)) {
-            throw new ElementInterditException("ElementInterditException");
-        }
+        /*
+         * ElementInterditException
+         * if (!elements.contains(value)) {
+         * throw new ElementInterditException("ElementInterditException");
+         * }
+         */
 
         // ValeurInitialeModifExcept
         if (isValeurInitiale(x, y)) {
