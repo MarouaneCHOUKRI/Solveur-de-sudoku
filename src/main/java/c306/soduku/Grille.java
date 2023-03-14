@@ -44,7 +44,7 @@ public interface Grille {
          *                                   grille est en position x,y
          */
         void setValue(int x, int y, ElementDeGrilleImplAsChar value)
-                        throws HorsBornesException, ValeurImpossibleException, ElementInterditException,
+                        throws HorsBornesException, ValeurImpossibleException,
                         ValeurInitialeModifExcept;
 
         /**

@@ -17,7 +17,7 @@ public class GrilleImplTest {
 
     @Test
     public void testIsComplete()
-            throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
+            throws HorsBornesException, ValeurImpossibleException, ValeurInitialeModifExcept {
         ElementDeGrilleImplAsChar value = new ElementDeGrilleImplAsChar('0');
         for (int i = 0; i < grille.getDimension(); i++) {
             for (int j = 0; j < grille.getDimension(); j++) {
