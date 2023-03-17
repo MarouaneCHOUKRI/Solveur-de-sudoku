@@ -26,7 +26,7 @@ public class GrilleImpl implements Grille {
     }
 
     @Override
-    public void setValue(int x, int y, ElementDeGrilleImplAsChar value)
+    public void setValue(int x, int y, ElementDeGrille value)
             throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
         // HorsBornesException
         if (x < 0 || y < 0 || x >= dimension || y >= dimension) {
@@ -68,7 +68,7 @@ public class GrilleImpl implements Grille {
     }
 
     @Override
-    public boolean isPossible(int x, int y, ElementDeGrilleImplAsChar value)
+    public boolean isPossible(int x, int y, ElementDeGrille value)
             throws HorsBornesException, ElementInterditException {
         // HorsBornesException
         if (x < 0 || y < 0 || x >= dimension || y >= dimension) {
