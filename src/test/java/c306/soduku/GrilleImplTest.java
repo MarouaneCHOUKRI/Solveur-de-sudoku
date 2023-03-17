@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Before;
 import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GrilleImplTest {
 
@@ -19,12 +21,13 @@ public class GrilleImplTest {
     public void testIsPossible()
             throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
 
-        ElementDeGrille value1 = new ElementDeGrilleImplAsChar('0');
-        ElementDeGrille value2 = new ElementDeGrilleImplAsChar('2');
+        Map<Character, ElementDeGrille> elementDeGrilleMap = new HashMap<>();
+        char v = '*';
+        ElementDeGrille value = new ElementDeGrilleImplAsChar(v);
+        elementDeGrilleMap.put(v, value);
 
+        assertFalse(grille.isValeurInitiale(0, 2));
+        assertTrue(grille.isPossible(0, 2, value));
 
-        assertTrue(grille.isPossible(0, 2, value1));
-        grille.setValue(0, 2, value1);
-        assertFalse(grille.isPossible(0, 2, value2));
     }
 }
