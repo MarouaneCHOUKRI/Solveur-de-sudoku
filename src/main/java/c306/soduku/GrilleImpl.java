@@ -9,10 +9,13 @@ public class GrilleImpl implements Grille {
     private Set<ElementDeGrille> elements;
     private int dimension;
 
-    public GrilleImpl(int dimension) {
-        this.dimension = dimension;
+    public GrilleImpl(ElementDeGrille[] elementDeGrilles) {
+        this.dimension = elementDeGrilles.length;
         grille = new ElementDeGrille[dimension][dimension];
         elements = new HashSet<>();
+        for (ElementDeGrille e : elementDeGrilles) {
+            elements.add(e);
+        }
     }
 
     @Override
@@ -29,7 +32,7 @@ public class GrilleImpl implements Grille {
     public void setValue(int x, int y, ElementDeGrille value)
             throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
         // HorsBornesException
-        if (x < 0 || y < 0 || x >= dimension || y >= dimension) {
+        if (x < 0 || y < 0 || x > dimension || y > dimension) {
             throw new HorsBornesException("HorsBornesException");
         }
 
@@ -57,8 +60,8 @@ public class GrilleImpl implements Grille {
 
     @Override
     public boolean isComplete() {
-        for (int i = 0; i <= dimension; i++) {
-            for (int j = 0; j <= dimension; j++) {
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
                 if (grille[i][j] == null) {
                     return false;
                 }
@@ -70,31 +73,32 @@ public class GrilleImpl implements Grille {
     @Override
     public boolean isPossible(int x, int y, ElementDeGrille value)
             throws HorsBornesException, ElementInterditException {
-        // HorsBornesException
-        if (x < 0 || y < 0 || x >= dimension || y >= dimension) {
+
+        if (x < 0 || y < 0 || x > dimension || y > dimension) {
             throw new HorsBornesException("HorsBornesException");
         }
 
-        // ElementInterditException
         if (!elements.contains(value)) {
             throw new ElementInterditException("ElementInterditException");
         }
 
         for (int i = 0; i < dimension; i++) {
-            if (grille[x][i] == value || grille[i][y] == value) {
+            if (x < 0 || y < 0 || grille[x][i] == value || grille[i][y] == value) {
                 return false;
             }
         }
 
-        int xStart = (x / 3) * 3;
-        int yStart = (y / 3) * 3;
-        for (int i = xStart; i < xStart + 3; i++) {
-            for (int j = yStart; j < yStart + 3; j++) {
-                if (grille[i][j] == value) {
-                    return false;
-                }
-            }
-        }
+        /*
+         * int xStart = (x / 3) * 3;
+         * int yStart = (y / 3) * 3;
+         * for (int i = xStart; i < xStart + 3; i++) {
+         * for (int j = yStart; j < yStart + 3; j++) {
+         * if (grille[i][j] == value) {
+         * return false;
+         * }
+         * }
+         * }
+         */
 
         return true;
     }

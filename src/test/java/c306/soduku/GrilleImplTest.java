@@ -1,33 +1,102 @@
 package c306.soduku;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Set;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GrilleImplTest {
-
     private Grille grille;
 
-    @Before
-    public void setUp() {
-        grille = new GrilleImpl(9);
+    @BeforeEach
+    public void setUp() throws IOException, ElementInterditException, ValeurInitialeModifExcept, HorsBornesException,
+            ValeurImpossibleException {
+
+        InputStream in = new FileInputStream("C:\\Users\\chouk\\OneDrive\\Bureau\\Solveur-de-sudoku\\"
+                + "src\\main\\java\\c306\\soduku\\grilles\\sudoku16-moyen-complete.txt");
+
+        grille = GrilleParser.parse(in);
     }
 
+    // Test GetElements
     @Test
-    public void testIsPossible()
-            throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
+    public void testGetElements() {
+        Set<ElementDeGrille> elements = grille.getElements();
+        assertNotNull(elements);
+        assertFalse(elements.isEmpty());
+    }
 
-        Map<Character, ElementDeGrille> elementDeGrilleMap = new HashMap<>();
-        char v = '*';
-        ElementDeGrille value = new ElementDeGrilleImplAsChar(v);
-        elementDeGrilleMap.put(v, value);
+    // Test GetDimension
+    @Test
+    public void testGetDimension() {
+        int dimension = grille.getDimension();
+        assertEquals(16, dimension);
+    }
 
-        assertFalse(grille.isValeurInitiale(0, 2));
-        assertTrue(grille.isPossible(0, 2, value));
+    // Test SetValue
+    @Test
+    public void testSetValue() {
 
+        // Test HorsBornesException
+        ElementDeGrille value = new ElementDeGrilleImplAsChar('f');
+        assertThrows(HorsBornesException.class, () -> grille.setValue(-1, 0, value));
+
+        // Test ValeurImpossibleException
+        ElementDeGrille impossibleValue = new ElementDeGrilleImplAsChar('a');
+        assertThrows(ValeurImpossibleException.class, () -> grille.setValue(0, 0, impossibleValue));
+
+        // Test ElementInterditException
+        ElementDeGrille interditValue = new ElementDeGrilleImplAsChar('*');
+        assertThrows(ElementInterditException.class, () -> grille.setValue(0, 0, interditValue));
+
+        // Test ValeurInitialeModifExcept
+        assertThrows(ValeurInitialeModifExcept.class, () -> grille.setValue(0, 1, value));
+    }
+
+    // Test GetValue
+    @Test
+    public void testGetValue() throws HorsBornesException {
+        ElementDeGrille value = grille.getValue(0, 0);
+        assertNotNull(value);
+    }
+
+    // Test IsComplete
+    @Test
+    public void testIsComplete() {
+        boolean complete = grille.isComplete();
+        assertTrue(complete);
+    }
+
+    // Test IsPossible
+    @Test
+    public void testIsPossible() throws HorsBornesException, ElementInterditException {
+
+        // Test HorsBornesException
+        ElementDeGrille value = new ElementDeGrilleImplAsChar('f');
+        assertThrows(HorsBornesException.class, () -> grille.isPossible(-1, 0, value));
+
+        // Test ElementInterditException
+        ElementDeGrille interditValue = new ElementDeGrilleImplAsChar('*');
+        assertThrows(ElementInterditException.class, () -> grille.isPossible(0, 0, interditValue));
+
+        // Test non possible
+        ElementDeGrille nonPossibleValue = new ElementDeGrilleImplAsChar('2');
+        assertFalse(grille.isPossible(0, 0, nonPossibleValue));
+    }
+
+    // Test IsValeurInitiale
+    @Test
+    public void testIsValeurInitiale() {
+        boolean valeurInitiale = grille.isValeurInitiale(0, 0);
+        assertTrue(valeurInitiale);
     }
 }
