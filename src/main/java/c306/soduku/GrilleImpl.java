@@ -5,14 +5,14 @@ import java.util.Set;
 
 public class GrilleImpl implements Grille {
 
+    private int dimension;
     private ElementDeGrille[][] grille;
     private Set<ElementDeGrille> elements;
-    private int dimension;
 
     public GrilleImpl(ElementDeGrille[] elementDeGrilles) {
         this.dimension = elementDeGrilles.length;
         grille = new ElementDeGrille[dimension][dimension];
-        elements = new HashSet<>();
+        elements = new HashSet<ElementDeGrille>();
         for (ElementDeGrille e : elementDeGrilles) {
             elements.add(e);
         }
@@ -31,22 +31,19 @@ public class GrilleImpl implements Grille {
     @Override
     public void setValue(int x, int y, ElementDeGrille value)
             throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
-        // HorsBornesException
+
         if (x < 0 || y < 0 || x > dimension || y > dimension) {
             throw new HorsBornesException("HorsBornesException");
         }
 
-        // ValeurImpossibleException
         if (value != null && !isPossible(x, y, value)) {
             throw new ValeurImpossibleException("ValeurImpossibleException");
         }
 
-        // ElementInterditException
         if (!elements.contains(value)) {
             throw new ElementInterditException("ElementInterditException");
         }
 
-        // ValeurInitialeModifExcept
         if (isValeurInitiale(x, y)) {
             throw new ValeurInitialeModifExcept("ValeurInitialeModifExcept");
         }
@@ -87,18 +84,8 @@ public class GrilleImpl implements Grille {
                 return false;
             }
         }
-
-        /*
-         * int xStart = (x / 3) * 3;
-         * int yStart = (y / 3) * 3;
-         * for (int i = xStart; i < xStart + 3; i++) {
-         * for (int j = yStart; j < yStart + 3; j++) {
-         * if (grille[i][j] == value) {
-         * return false;
-         * }
-         * }
-         * }
-         */
+        
+        // Vérifier un carré de 4X4
 
         return true;
     }

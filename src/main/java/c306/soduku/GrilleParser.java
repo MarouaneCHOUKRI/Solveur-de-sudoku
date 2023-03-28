@@ -43,18 +43,17 @@ public class GrilleParser {
     public static Grille parse(final InputStream in)
             throws IOException, ElementInterditException, ValeurInitialeModifExcept, HorsBornesException,
             ValeurImpossibleException {
-    	
-    	try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
 
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
 
             String line = reader.readLine();
             if (line == null || line.length() == 0) {
                 throw new IllegalArgumentException("pas de première ligne ?");
             }
-            
+
             final int dimension = line.length() - 1;
             final char vide = line.charAt(0);
-            
+
             Map<Character, ElementDeGrille> elementDeGrilleMap = new HashMap<>();
             for (int i = 1; i < line.length(); i++) {
                 char value = line.charAt(i);
@@ -70,12 +69,12 @@ public class GrilleParser {
             if (elementDeGrilleMap.size() != dimension) {
                 throw new IllegalArgumentException("pas le bon nombre de valeurs possibles");
             }
-            
-            ElementDeGrille[] elementDeGrilles = elementDeGrilleMap.values().toArray(new ElementDeGrille[]{});
-            
+
+            ElementDeGrille[] elementDeGrilles = elementDeGrilleMap.values().toArray(new ElementDeGrille[] {});
+
             Grille grille = new GrilleImpl(elementDeGrilles);
 
-            for (int i = 0; i < dimension; i++) {
+            for (int i = 0; i < dimension; i++) { // n'ajoute pas la première ligne
                 line = reader.readLine();
                 if (line == null || line.length() != dimension) {
                     throw new IOException("pas le bon nombre sur la ligne : " + line);
