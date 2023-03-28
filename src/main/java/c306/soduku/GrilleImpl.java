@@ -47,6 +47,7 @@ public class GrilleImpl implements Grille {
         if (isValeurInitiale(x, y)) {
             throw new ValeurInitialeModifExcept("ValeurInitialeModifExcept");
         }
+
         grille[x][y] = value;
     }
 
@@ -84,7 +85,7 @@ public class GrilleImpl implements Grille {
                 return false;
             }
         }
-        
+
         // Vérifier un carré de 4X4
 
         return true;
