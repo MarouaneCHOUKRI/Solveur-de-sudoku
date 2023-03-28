@@ -15,7 +15,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class GrilleImplTest {
+    private final int dimension = 16;
     private Grille grille;
+    private Set<ElementDeGrille> elements;
 
     @BeforeEach
     public void setUp() throws IOException, ElementInterditException, ValeurInitialeModifExcept, HorsBornesException,
@@ -25,28 +27,32 @@ public class GrilleImplTest {
                 + "src\\main\\java\\c306\\soduku\\grilles\\sudoku16-moyen-complete.txt");
 
         grille = GrilleParser.parse(in);
+        elements = grille.getElements();
     }
 
     @Test
     public void testGetElements() {
-        Set<ElementDeGrille> elements = grille.getElements();
         assertFalse(elements.isEmpty());
     }
 
     @Test
     public void testGetDimension() {
-        int dimension = grille.getDimension();
-        assertEquals(16, dimension);
+        assertEquals(dimension, grille.getDimension());
     }
 
     @Test
     public void testSetValue() {
-        Set<ElementDeGrille> elements = grille.getElements();
-        ElementDeGrille value = new ElementDeGrilleImplAsChar('0');
+        ElementDeGrille value = new ElementDeGrilleImplAsChar('f');
 
-        // // HorsBornesException
-        // assertThrows(HorsBornesException.class, () -> grille.setValue(-1, 0, value));
+        // ValeurImpossibleException
 
+        // ElementInterditException
+        assertThrows(ElementInterditException.class, () -> grille.setValue(1, 0, value));
+
+        // HorsBornesException
+        assertThrows(HorsBornesException.class, () -> grille.setValue(-1, 0, value));
+
+        // ValeurInitialeModifExcept
     }
 
     @Test
