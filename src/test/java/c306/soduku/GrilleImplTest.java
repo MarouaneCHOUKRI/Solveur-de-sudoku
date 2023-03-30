@@ -23,8 +23,7 @@ public class GrilleImplTest {
     public void setUp() throws IOException, ElementInterditException, ValeurInitialeModifExcept, HorsBornesException,
             ValeurImpossibleException {
 
-        InputStream in = new FileInputStream("C:\\Users\\chouk\\OneDrive\\Bureau\\Solveur-de-sudoku\\"
-                + "src\\main\\java\\c306\\soduku\\grilles\\sudoku16-moyen-complete.txt");
+        InputStream in = new FileInputStream("C:\\Users\\utilisateur\\Desktop\\Solveur-de-sudoku\\src\\main\\java\\c306\\soduku\\grilles\\sudoku16-moyen-complete.txt");
 
         grille = GrilleParser.parse(in);
         elements = grille.getElements();
