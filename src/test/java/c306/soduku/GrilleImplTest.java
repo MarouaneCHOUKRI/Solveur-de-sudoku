@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
@@ -23,8 +22,7 @@ public class GrilleImplTest {
     public void setUp() throws IOException, ElementInterditException, ValeurInitialeModifExcept, HorsBornesException,
             ValeurImpossibleException {
 
-        InputStream in = new FileInputStream("C:\\Users\\chouk\\OneDrive\\Bureau\\Solveur-de-sudoku\\"
-                + "src\\main\\java\\c306\\soduku\\grilles\\sudoku16-moyen-complete.txt");
+        InputStream in = getClass().getResourceAsStream("/sudoku16-moyen.txt");
 
         grille = GrilleParser.parse(in);
         elements = grille.getElements();
@@ -41,36 +39,49 @@ public class GrilleImplTest {
     }
 
     @Test
-    public void testSetValue() {
-        ElementDeGrille value = new ElementDeGrilleImplAsChar('f');
+    public void testSetValue()
+            throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
 
-        // ValeurImpossibleException
+        grille.setValue(0, 0, grille.getValue(4, 14));
 
-        // ElementInterditException
-        assertThrows(ElementInterditException.class, () -> grille.setValue(1, 0, value));
+        assertThrows(HorsBornesException.class,
+                () -> grille.setValue(-1, 0, grille.getValue(0, 0)));
 
-        // HorsBornesException
-        assertThrows(HorsBornesException.class, () -> grille.setValue(-1, 0, value));
+        assertThrows(ValeurImpossibleException.class,
+                () -> grille.setValue(0, 0, grille.getValue(0, 8)));
 
-        // ValeurInitialeModifExcept
+        assertThrows(ElementInterditException.class,
+                () -> grille.setValue(1, 0, new ElementDeGrilleImplAsChar('?')));
+
+        assertThrows(ValeurInitialeModifExcept.class,
+                () -> grille.setValue(0, 1, grille.getValue(9, 0)));
     }
 
     @Test
     public void testGetValue() throws HorsBornesException {
-        ElementDeGrille value = grille.getValue(1, 1);
-        assertNotNull(value);
+        assertNotNull(grille.getValue(1, 0));
     }
 
     @Test
     public void testIsComplete() {
-        boolean complete = grille.isComplete();
-        assertTrue(complete);
+        assertFalse(grille.isComplete());
+    }
+
+    @Test
+    public void testIsPossible() throws HorsBornesException,
+            ElementInterditException {
+
+        assertTrue(grille.isPossible(0, 0, grille.getValue(4, 14)));
+
+        assertThrows(HorsBornesException.class,
+                () -> grille.setValue(-1, 0, grille.getValue(0, 0)));
+
+        assertThrows(ElementInterditException.class,
+                () -> grille.setValue(1, 0, new ElementDeGrilleImplAsChar('0')));
     }
 
     @Test
     public void testIsValeurInitiale() {
-        boolean valeurInitiale = grille.isValeurInitiale(14, 0);
-        assertTrue(valeurInitiale);
+        assertTrue(grille.isValeurInitiale(14, 0));
     }
-
 }

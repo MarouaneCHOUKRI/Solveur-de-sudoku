@@ -36,7 +36,7 @@ public class GrilleImpl implements Grille {
             throw new HorsBornesException("HorsBornesException");
         }
 
-        if (value != null && !isPossible(x, y, value)) {
+        if (!isPossible(x, y, value)) {
             throw new ValeurImpossibleException("ValeurImpossibleException");
         }
 
@@ -72,6 +72,9 @@ public class GrilleImpl implements Grille {
     public boolean isPossible(int x, int y, ElementDeGrille value)
             throws HorsBornesException, ElementInterditException {
 
+        int xDebut = (x / 4) * 4;
+        int yDebut = (y / 4) * 4;
+
         if (x < 0 || y < 0 || x > dimension || y > dimension) {
             throw new HorsBornesException("HorsBornesException");
         }
@@ -81,12 +84,18 @@ public class GrilleImpl implements Grille {
         }
 
         for (int i = 0; i < dimension; i++) {
-            if (x < 0 || y < 0 || grille[x][i] == value || grille[i][y] == value) {
+            if (grille[x][i] == value || grille[i][y] == value) {
                 return false;
             }
         }
 
-        // Vérifier un carré de 4X4
+        for (int i = xDebut; i < xDebut + 4; i++) {
+            for (int j = yDebut; j < yDebut + 4; j++) {
+                if (grille[i][j] == value) {
+                    return false;
+                }
+            }
+        }
 
         return true;
     }

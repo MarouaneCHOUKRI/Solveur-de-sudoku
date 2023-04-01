@@ -74,7 +74,7 @@ public class GrilleParser {
 
             Grille grille = new GrilleImpl(elementDeGrilles);
 
-            for (int i = 0; i < dimension; i++) { // n'ajoute pas la première ligne
+            for (int i = 0; i < dimension; i++) {
                 line = reader.readLine();
                 if (line == null || line.length() != dimension) {
                     throw new IOException("pas le bon nombre sur la ligne : " + line);
