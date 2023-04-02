@@ -15,7 +15,7 @@ import java.util.Set;
 public interface Grille {
 
         /**
-         * Renvoie les ElementDeGrille pouvant exister dans le grille.
+         * @return elements possibles a mettre dans une grille.
          */
         Set<ElementDeGrille> getElements();
 
@@ -25,8 +25,7 @@ public interface Grille {
         int getDimension();
 
         /**
-         * Affecte une valeur dans une case de la grille, ou null pour
-         * 'vider' la case
+         * Affecte une valeur dans une case de la grille.
          *
          * @param x     position x dans la grille
          * @param y     position y dans la grille
@@ -57,7 +56,6 @@ public interface Grille {
          * @param y position y dans la grille
          * @return élément de la grille de la case x,y, null
          *         s'il n'y a pas d'élément à cette position
-         * 
          * @throws HorsBornesException si x ou y sont en dehors de la grille
          */
         ElementDeGrille getValue(int x, int y) throws HorsBornesException;
@@ -78,7 +76,6 @@ public interface Grille {
          * @return true si value peut être placé dans la grille en
          *         position x,y en respectant les règles du sudoku
          *         et sans modifier une valeur initiale.
-         * 
          * @throws HorsBornesException      si x ou y sont hors bornes
          * @throws ElementInterditException si value n'est pas un caractere
          *                                  pouvant être mis dans la grille

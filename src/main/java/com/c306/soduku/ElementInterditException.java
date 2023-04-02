@@ -1,7 +1,10 @@
 package com.c306.soduku;
 
 public class ElementInterditException extends Exception {
-    public ElementInterditException(String message) {
+    /**
+     * @param message message
+     */
+    public ElementInterditException(final String message) {
         super(message);
     }
 }

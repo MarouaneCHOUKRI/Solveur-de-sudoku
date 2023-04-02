@@ -1,14 +1,23 @@
 package com.c306.soduku;
 
 public class ElementDeGrilleImplAsChar implements ElementDeGrille {
-    private final char caractere;
+    /**
+     * @param representation.
+     */
+    private char representation;
 
-    public ElementDeGrilleImplAsChar(char caractere) {
-        this.caractere = caractere;
+    /**
+     * @param caractere le caractère représentant l'élément de grille
+     */
+    public ElementDeGrilleImplAsChar(final char caractere) {
+        this.representation = caractere;
     }
 
+    /**
+     * @return la représentation de l'élément de grille
+     */
     @Override
     public char getRepresentation() {
-        return caractere;
+        return representation;
     }
 }

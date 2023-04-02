@@ -1,7 +1,10 @@
 package com.c306.soduku;
 
 public class ValeurImpossibleException extends Exception {
-    public ValeurImpossibleException(String message) {
+    /**
+     * @param message message
+     */
+    public ValeurImpossibleException(final String message) {
         super(message);
     }
 }

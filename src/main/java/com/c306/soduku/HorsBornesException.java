@@ -1,7 +1,10 @@
 package com.c306.soduku;
 
 public class HorsBornesException extends Exception {
-    public HorsBornesException(String message) {
+    /**
+     * @param message message
+     */
+    public HorsBornesException(final String message) {
         super(message);
     }
 }
