@@ -5,7 +5,7 @@ public class SolveurImpl implements Solveur {
     /**
      * @param dimension
      */
-    private final int dimension = 16;
+    private static final int DIM = 16;
 
     /**
      * Résoud une Grille.
@@ -14,8 +14,8 @@ public class SolveurImpl implements Solveur {
      */
     @Override
     public boolean solve(final Grille grille) {
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
+        for (int i = 0; i < DIM; i++) {
+            for (int j = 0; j < DIM; j++) {
                 try {
                     if (grille.getValue(i, j) == null) {
                         for (ElementDeGrille element : grille.getElements()) {
