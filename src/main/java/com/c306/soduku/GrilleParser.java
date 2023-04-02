@@ -1,4 +1,4 @@
-package c306.soduku;
+package com.c306.soduku;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,8 +25,6 @@ import java.util.Map;
  * @author Sébastien Choplin <sebastien.choplin@u-picardie.fr>
  */
 public class GrilleParser {
-    private static final char EMPTY = '-';
-
     /**
      * constructeur.
      */
@@ -41,10 +39,12 @@ public class GrilleParser {
      * @throws ValeurImpossibleException si la grille ne respècte pas les règles
      */
     public static Grille parse(final InputStream in)
-            throws IOException, ElementInterditException, ValeurInitialeModifExcept, HorsBornesException,
+            throws IOException, ElementInterditException,
+            ValeurInitialeModifExcept, HorsBornesException,
             ValeurImpossibleException {
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in,
+                StandardCharsets.UTF_8))) {
 
             String line = reader.readLine();
             if (line == null || line.length() == 0) {
@@ -61,7 +61,8 @@ public class GrilleParser {
                     continue;
                 }
                 if (elementDeGrilleMap.containsKey(value)) {
-                    throw new IllegalArgumentException("valeur possible dupliquée : " + value);
+                    throw new IllegalArgumentException("valeur possible dupliquée : "
+                            + value);
                 }
                 elementDeGrilleMap.put(value, new ElementDeGrilleImplAsChar(value));
             }
@@ -70,7 +71,8 @@ public class GrilleParser {
                 throw new IllegalArgumentException("pas le bon nombre de valeurs possibles");
             }
 
-            ElementDeGrille[] elementDeGrilles = elementDeGrilleMap.values().toArray(new ElementDeGrille[] {});
+            ElementDeGrille[] elementDeGrilles = elementDeGrilleMap.values().toArray(
+                    new ElementDeGrille[] {});
 
             Grille grille = new GrilleImpl(elementDeGrilles);
 

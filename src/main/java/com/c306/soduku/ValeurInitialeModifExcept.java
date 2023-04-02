@@ -1,7 +1,7 @@
-package c306.soduku;
+package com.c306.soduku;
 
 public class ValeurInitialeModifExcept extends Exception {
-    public ValeurInitialeModifExcept(String message) {
+    public ValeurInitialeModifExcept(final String message) {
         super(message);
     }
 }

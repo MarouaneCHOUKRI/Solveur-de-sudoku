@@ -1,4 +1,4 @@
-package c306.soduku;
+package com.c306.soduku;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ public class GrilleImpl implements Grille {
 
     @Override
     public Set<ElementDeGrille> getElements() {
-        return elements;
+        return new HashSet<>(elements);
     }
 
     @Override
@@ -30,7 +30,8 @@ public class GrilleImpl implements Grille {
 
     @Override
     public void setValue(int x, int y, ElementDeGrille value)
-            throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
+            throws HorsBornesException, ValeurImpossibleException,
+            ElementInterditException, ValeurInitialeModifExcept {
 
         if (x < 0 || y < 0 || x > dimension || y > dimension) {
             throw new HorsBornesException("HorsBornesException");
@@ -40,7 +41,7 @@ public class GrilleImpl implements Grille {
             throw new ValeurImpossibleException("ValeurImpossibleException");
         }
 
-        if (!elements.contains(value)) {
+        if (!elements.contains(value) && value != null) {
             throw new ElementInterditException("ElementInterditException");
         }
 
@@ -79,7 +80,7 @@ public class GrilleImpl implements Grille {
             throw new HorsBornesException("HorsBornesException");
         }
 
-        if (!elements.contains(value)) {
+        if (!elements.contains(value) && value != null) {
             throw new ElementInterditException("ElementInterditException");
         }
 

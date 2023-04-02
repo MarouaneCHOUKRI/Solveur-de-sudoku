@@ -1,4 +1,4 @@
-package c306.soduku;
+package com.c306.soduku;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -19,8 +19,9 @@ public class GrilleImplTest {
     private Set<ElementDeGrille> elements;
 
     @BeforeEach
-    public void setUp() throws IOException, ElementInterditException, ValeurInitialeModifExcept, HorsBornesException,
-            ValeurImpossibleException {
+    public void setUp() throws IOException, ElementInterditException,
+            ValeurInitialeModifExcept,
+            HorsBornesException, ValeurImpossibleException {
 
         InputStream in = getClass().getResourceAsStream("/sudoku16-moyen.txt");
 
@@ -40,7 +41,8 @@ public class GrilleImplTest {
 
     @Test
     public void testSetValue()
-            throws HorsBornesException, ValeurImpossibleException, ElementInterditException, ValeurInitialeModifExcept {
+            throws HorsBornesException, ValeurImpossibleException,
+            ElementInterditException, ValeurInitialeModifExcept {
 
         grille.setValue(0, 0, grille.getValue(4, 14));
 
@@ -51,7 +53,8 @@ public class GrilleImplTest {
                 () -> grille.setValue(0, 0, grille.getValue(0, 8)));
 
         assertThrows(ElementInterditException.class,
-                () -> grille.setValue(1, 0, new ElementDeGrilleImplAsChar('?')));
+                () -> grille.setValue(1, 0,
+                        new ElementDeGrilleImplAsChar('?')));
 
         assertThrows(ValeurInitialeModifExcept.class,
                 () -> grille.setValue(0, 1, grille.getValue(9, 0)));
@@ -74,10 +77,11 @@ public class GrilleImplTest {
         assertTrue(grille.isPossible(0, 0, grille.getValue(4, 14)));
 
         assertThrows(HorsBornesException.class,
-                () -> grille.setValue(-1, 0, grille.getValue(0, 0)));
+                () -> grille.isPossible(-1, 0, grille.getValue(0, 0)));
 
         assertThrows(ElementInterditException.class,
-                () -> grille.setValue(1, 0, new ElementDeGrilleImplAsChar('0')));
+                () -> grille.isPossible(1, 0,
+                        new ElementDeGrilleImplAsChar('0')));
     }
 
     @Test

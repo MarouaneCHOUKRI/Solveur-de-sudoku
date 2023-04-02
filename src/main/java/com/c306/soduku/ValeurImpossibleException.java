@@ -1,4 +1,4 @@
-package c306.soduku;
+package com.c306.soduku;
 
 public class ValeurImpossibleException extends Exception {
     public ValeurImpossibleException(String message) {

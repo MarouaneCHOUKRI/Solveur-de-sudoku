@@ -1,4 +1,4 @@
-package c306.soduku;
+package com.c306.soduku;
 
 public class ElementInterditException extends Exception {
     public ElementInterditException(String message) {
